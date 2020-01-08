@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=0,maximum-scale=0,user-scalable=yes,shrink-to-fit=no">
+    <title>form generator</title>
+    <style>
+        html,
+        body {
+            height: 100%;
+            overflow: hidden;
+            padding: 0;
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <iframe id="frame" width="100%" height="100%" frameborder="0"></iframe>
+    <script>
+        window.onload = function () {
+            const vscode = acquireVsCodeApi()
+            const cmds = {
+                setSrc: function (message) {
+                    document.getElementById('frame').src = message.data.src
+                },
+                writeFile: function (message) {
+                    vscode.postMessage(message)
+                },
+                openUrl: function(message) {
+                    vscode.postMessage(message)
+                }
+            }
+
+            window.addEventListener('message', event => {
+                const message = event.data
+                if (message && message.cmd) cmds[message.cmd](message)
+            });
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,66 @@
+{
+	"name": "form-generator-plugin",
+	"displayName": "Form Generator Plugin",
+	"description": "",
+	"version": "1.0.0",
+	"engines": {
+		"vscode": "^1.41.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"activationEvents": [
+		"onCommand:extension.openFormGenerator"
+	],
+	"icon": "images/logo.png",
+	"main": "./extension.js",
+	"homepage": "https://github.com/JakHuang/form-generator-plugin/blob/master/README.md",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/JakHuang/form-generator-plugin"
+	},
+	"contributes": {
+		"configuration": {
+			"type": "object",
+			"title": "表单设计器配置",
+			"properties": {
+				"openFormGenerator.src": {
+					"type": "string",
+					"default": "https://mrhj.gitee.io/form-generator-plugin-page/#/",
+					"description": "设计器远程链接"
+				}
+			}
+		},
+		"commands": [
+			{
+				"command": "extension.openFormGenerator",
+				"title": "打开表单设计器"
+			}
+		],
+		"menus": {
+			"explorer/context": [
+				{
+					"command": "extension.openFormGenerator",
+					"group": "navigation"
+				}
+			]
+		}
+	},
+	"scripts": {
+		"test": "node ./test/runTest.js"
+	},
+	"devDependencies": {
+		"@types/glob": "^7.1.1",
+		"@types/mocha": "^5.2.7",
+		"@types/node": "^12.11.7",
+		"@types/vscode": "^1.41.0",
+		"eslint": "^6.6.0",
+		"glob": "^7.1.5",
+		"mocha": "^6.2.2",
+		"typescript": "^3.6.4",
+		"vscode-test": "^1.2.2"
+	},
+	"dependencies": {
+		"open": "^7.0.0"
+	}
+}
