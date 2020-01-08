@@ -12,7 +12,7 @@
 openFormGenerator.src
 ```
 可配置设计器远程网页链接。  
-比如：您从fork了https://github.com/JakHuang/form-generator，并做了定制化的修改。  
+比如：您从fork了[form-generator](https://github.com/JakHuang/form-generator)，并做了定制化的修改。  
 此时就可修改 openFormGenerator.src 为您部署的链接。
 
 **Enjoy!**
