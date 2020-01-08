@@ -2,7 +2,7 @@
 	"name": "form-generator-plugin",
 	"displayName": "Form Generator Plugin",
 	"description": "",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"engines": {
 		"vscode": "^1.41.0"
 	},
