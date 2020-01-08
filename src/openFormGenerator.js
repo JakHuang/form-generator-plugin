@@ -1,10 +1,10 @@
-const vscode = require('vscode');
-const fs = require('fs');
-const path = require('path');
-const open = require('open');
+const vscode = require('vscode')
+const fs = require('fs')
+const path = require('path')
+const open = require('open')
 
 function getExtensionFileAbsolutePath(context, relativePath) {
-    return path.join(context.extensionPath, relativePath);
+    return path.join(context.extensionPath, relativePath)
 }
 
 /**
@@ -13,14 +13,14 @@ function getExtensionFileAbsolutePath(context, relativePath) {
  * @param {*} templatePath 相对于插件根目录的html文件相对路径
  */
 function getWebViewContent(context, templatePath) {
-    const resourcePath = getExtensionFileAbsolutePath(context, templatePath);
-    const dirPath = path.dirname(resourcePath);
-    let html = fs.readFileSync(resourcePath, 'utf-8');
+    const resourcePath = getExtensionFileAbsolutePath(context, templatePath)
+    const dirPath = path.dirname(resourcePath)
+    let html = fs.readFileSync(resourcePath, 'utf-8')
     // vscode不支持直接加载本地资源，需要替换成其专有路径格式，这里只是简单的将样式和JS的路径替换
     html = html.replace(/(<link.+?href="|<script.+?src="|<img.+?src=")(.+?)"/g, (m, $1, $2) => {
-        return $1 + vscode.Uri.file(path.resolve(dirPath, $2)).with({ scheme: 'vscode-resource' }).toString() + '"';
-    });
-    return html;
+        return $1 + vscode.Uri.file(path.resolve(dirPath, $2)).with({ scheme: 'vscode-resource' }).toString() + '"'
+    })
+    return html
 }
 
 const methods = {
@@ -41,7 +41,7 @@ module.exports = function (context) {
             let dirPath = uri.fsPath,
                 stat = fs.lstatSync(dirPath)
             if (stat.isFile()) dirPath = path.dirname(dirPath)
-            
+
             let pclintBar = vscode.window.createStatusBarItem()
             pclintBar.text = `目标文件夹：${dirPath}`
             pclintBar.show()
@@ -54,7 +54,7 @@ module.exports = function (context) {
                     enableScripts: true, // 启用JS，默认禁用
                     retainContextWhenHidden: true, // webview被隐藏时保持状态，避免被重置
                 }
-            );
+            )
             panel.onDidChangeViewState(e => {
                 if (panel.visible) {
                     pclintBar.show()
@@ -62,13 +62,13 @@ module.exports = function (context) {
                     pclintBar.hide()
                 }
             })
-            panel.webview.html = getWebViewContent(context, 'src/view/index.html');
+            panel.webview.html = getWebViewContent(context, 'src/view/index.html')
             panel.webview.postMessage({
                 cmd: 'setSrc',
                 data: {
                     src: vscode.workspace.getConfiguration().get('openFormGenerator.src')
                 }
-            });
+            })
             panel.webview.onDidReceiveMessage(message => {
                 if (message.cmd && message.data) {
                     let method = methods[message.cmd]
@@ -76,9 +76,12 @@ module.exports = function (context) {
                 } else {
                     vscode.window.showInformationMessage(`没有与消息对应的方法`)
                 }
-            }, undefined, context.subscriptions);
+            }, undefined, context.subscriptions)
+            panel.onDidDispose(e => {
+                pclintBar.dispose()
+            })
         } else {
             vscode.window.showInformationMessage(`无法获取文件夹路径`)
         }
-    }));
-};
+    }))
+}
