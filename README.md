@@ -15,4 +15,7 @@ openFormGenerator.src
 比如：您从fork了[form-generator](https://github.com/JakHuang/form-generator)，并做了定制化的修改。  
 此时就可修改 openFormGenerator.src 为您部署的链接。
 
+## 交流
+- QQ群 976154366
+
 **Enjoy!**
