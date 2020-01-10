@@ -7,8 +7,11 @@
 		"vscode": "^1.41.0"
 	},
 	"categories": [
-		"JakHuang"
+		"Visual"
 	],
+	"author": {
+		"name": "JakHuang"
+	},
 	"activationEvents": [
 		"onCommand:extension.openFormGenerator"
 	],
