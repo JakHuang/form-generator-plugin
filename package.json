@@ -2,9 +2,9 @@
 	"name": "form-generator-plugin",
 	"displayName": "Form Generator Plugin",
 	"description": "Element UI可视化表单设计及代码生成器",
-	"version": "1.0.2",
+	"version": "1.0.3",
 	"engines": {
-		"vscode": "^1.41.0"
+		"vscode": "^1.23.0"
 	},
 	"categories": [
 		"Other"
