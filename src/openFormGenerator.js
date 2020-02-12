@@ -2,6 +2,7 @@ const vscode = require('vscode')
 const fs = require('fs')
 const path = require('path')
 const open = require('open')
+const DB_PATH = path.join(__dirname,'./data/db.json')
 
 function getExtensionFileAbsolutePath(context, relativePath) {
     return path.join(context.extensionPath, relativePath)
@@ -32,7 +33,17 @@ const methods = {
     },
     openUrl: function (message, vscode, dirPath) {
         open(message.data.url)
-    }
+    },
+    setStorageItem: function(message, vscode, dirPath) {
+        const { key, val } = message.data
+        const str = fs.readFileSync(DB_PATH).toString()
+        let json = {}
+        if (str) {
+            json = JSON.parse(str)
+        }
+        json[key] = val
+        fs.writeFileSync(DB_PATH, JSON.stringify(json))
+    },
 }
 
 module.exports = function (context) {
@@ -66,7 +77,8 @@ module.exports = function (context) {
             panel.webview.postMessage({
                 cmd: 'setSrc',
                 data: {
-                    src: vscode.workspace.getConfiguration().get('openFormGenerator.src')
+                    src: vscode.workspace.getConfiguration().get('openFormGenerator.src'),
+                    db: JSON.parse(fs.readFileSync(DB_PATH).toString() || '{}')
                 }
             })
             panel.webview.onDidReceiveMessage(message => {

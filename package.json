@@ -2,7 +2,7 @@
 	"name": "form-generator-plugin",
 	"displayName": "Form Generator Plugin",
 	"description": "Element UI可视化表单设计及代码生成器",
-	"version": "1.0.3",
+	"version": "1.0.4",
 	"engines": {
 		"vscode": "^1.0.0"
 	},
@@ -30,7 +30,7 @@
 			"properties": {
 				"openFormGenerator.src": {
 					"type": "string",
-					"default": "https://mrhj.gitee.io/form-generator-plugin-page/#/",
+					"default": "https://mrhj.gitee.io/form-generator-plugin-page-2/#/",
 					"description": "设计器远程链接"
 				}
 			}

@@ -117,12 +117,19 @@
                     frame.onload = function () {
                         document.getElementById('pre-loader').style.display = "none"
                         frame.style.display = "block"
+                        frame.contentWindow.postMessage({
+                            cmd: 'mountApp',
+                            data: message.data.db // 发送db.json中的内容
+                        }, '*')
                     }
                 },
                 writeFile: function (message) {
                     vscode.postMessage(message)
                 },
                 openUrl: function (message) {
+                    vscode.postMessage(message)
+                },
+                setStorageItem: function (message) {
                     vscode.postMessage(message)
                 }
             }
